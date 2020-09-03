@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
+import edu.human.com.board.service.BoardService;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovFileMngService;
@@ -56,6 +58,9 @@ public class BoardController {
     @Resource(name = "EgovFileMngUtil")
     private EgovFileMngUtil fileUtil;
 	
+    @Inject
+    private BoardService boardService;
+    
 	/**
      * XSS 방지 처리.
      *
@@ -98,11 +103,15 @@ public class BoardController {
 		    @ModelAttribute("board") Board board, 
 		    ModelMap model
 		    ) throws Exception {
-    	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+    		//현재 기존삭제방식 입니다.
+    		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
     	    board.setLastUpdusrId(user.getUniqId());
     	    bbsMngService.deleteBoardArticle(board);
-   
-    	    return "forword:/admin/board/selectBoard.do";
+    	    //여기까지 진행되면, 기존삭제 로직은 마무리, 그대로 유지
+    	    //이후에 개발자가 완전삭제 코드를 추가하면 됨.(아래-레코드삭제 목적)
+    	    boardService.deleteBoard(board.getNttId());
+    	    
+    	    return "forward:/admin/board/selectBoard.do";
     }
 	/*
 	 * AdminLTE용 게시물 수정(관리자단, 상세보기+수정 함께사용으로 개선).
