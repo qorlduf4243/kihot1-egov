@@ -88,11 +88,11 @@
                       <td>
                       <form name="subForm" method="post" action="<c:url value='/admin/board${prefix}/viewBoard.do'/>">
                       	<c:if test="${result.replyLc!=0}">
-				                <c:forEach begin="0" end="${result.replyLc}" step="1">
-				                    &nbsp;
-				                </c:forEach>
-				                <img src="<c:url value='/images/reply_arrow.gif'/>" alt="reply arrow"/>
-				        </c:if>
+			                <c:forEach begin="0" end="${result.replyLc}" step="1">
+			                    &nbsp;
+			                </c:forEach>
+			                <img src="<c:url value='/images/reply_arrow.gif'/>" alt="reply arrow"/>
+			            </c:if>
                       	<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" />
                         <input type="hidden" name="nttId"  value="<c:out value="${result.nttId}"/>" />
                         <input type="hidden" name="bbsTyCode" value="<c:out value='${brdMstrVO.bbsTyCode}'/>" />
@@ -117,12 +117,10 @@
                 </table>
                 <table class="table table-hover text-nowrap">
                   <tr>
-		           <td> <button type="button" onclick='location.href="<c:url value='/admin/board${prefix}/insertBoard.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>"' class="btn btn-primary">CREATE</button>
+		           <td> <button type="button" onclick='location.href="<c:url value='/admin/board/addBoard.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>"' class="btn btn-primary">CREATE</button>
 		           </td>
 		           <td>
 		           <style>
-		           button, input, optgroup, select, textarea
-		           {background-color: inherit;}
 		           .active .page-link{
 		               z-index: 3;
 					   color: #fff;
