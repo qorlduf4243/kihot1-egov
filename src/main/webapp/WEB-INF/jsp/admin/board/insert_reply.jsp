@@ -39,14 +39,14 @@
         }   
     }
     
-    function fn_egov_insertBoard() {
+    function fn_egov_insertReply() {
         
         if (!validateBoard(document.board)){
             return;
         }
         
         if (confirm('<spring:message code="common.regist.msg" />')) {
-            document.board.action = "<c:url value='/admin/board/insertBoard.do'/>";
+            document.board.action = "<c:url value='/admin/board/insertReply.do'/>";
             document.board.submit();                    
         }
     }
@@ -79,7 +79,7 @@
 						<div class="col-sm-12">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active">${bdMstr.bbsNm} page</li>
+								<li class="breadcrumb-item active">${brdMstrVO.bbsNm}</li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -96,7 +96,13 @@
 						<!-- /.card-header -->
 						<div class="card-body">
 							<form:form commandName="board" name="board" method="post" enctype="multipart/form-data" >
-								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+								<input type="hidden" name="replyAt" value="Y" />
+								<input type="hidden" name="pageIndex"  value="<c:out value='${searchVO.pageIndex}'/>"/>
+								<input type="hidden" name="nttId" value="<c:out value='${searchVO.nttId}'/>" />
+								<input type="hidden" name="parnts" value="<c:out value='${searchVO.parnts}'/>" />
+								<input type="hidden" name="sortOrdr" value="<c:out value='${result.sortOrdr}'/>" />
+								<input type="hidden" name="replyLc" value="<c:out value='${searchVO.replyLc}'/>" />
+								
 								<input type="hidden" name="bbsId" value="<c:out value='${bdMstr.bbsId}'/>" />
 								<input type="hidden" name="bbsAttrbCode" value="<c:out value='${bdMstr.bbsAttrbCode}'/>" />
 								<input type="hidden" name="bbsTyCode" value="<c:out value='${bdMstr.bbsTyCode}'/>" />
@@ -123,7 +129,7 @@
 										<!-- text input -->
 										<div class="form-group">
 											<label>제목</label> 
-											<input id="nttSj" name="nttSj" value="${result.nttSj}" type="text" class="form-control"
+											<input id="nttSj" name="nttSj" value="답글: ${result.nttSj}" type="text" class="form-control"
 												placeholder="" >
 											<br/><form:errors path="nttSj" />
 										</div>
@@ -171,7 +177,7 @@
 								    </c:if>
 									<div class="buttons">
 										<button type="button" onclick="javascript:fn_egov_select_noticeList('1'); return false;" class="btn btn-primary">목록</button>
-										<button type="button" onclick="javascript:fn_egov_insertBoard(); return false;" class="btn btn-info">글쓰기</button>
+										<button type="button" onclick="javascript:fn_egov_insertReply(); return false;" class="btn btn-info">답변쓰기</button>
 									</div>
 								</div>
 

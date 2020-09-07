@@ -52,7 +52,7 @@
     }
     
     function fn_egov_addReply() {
-        document.board.action = "<c:url value='/admin/board/insertReply.do'/>";
+        document.board.action = "<c:url value='/admin/board/addReply.do'/>";
         document.board.submit();          
     }
     
@@ -79,7 +79,7 @@
 						<div class="col-sm-12">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active">Starter Page</li>
+								<li class="breadcrumb-item active">${bdMstr.bbsNm} page</li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -97,6 +97,8 @@
 						<div class="card-body">
 							<form:form commandName="board" name="board" method="post" enctype="multipart/form-data" >
 								<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
+								<input type="hidden" name="sortOrdr" value="<c:out value='${result.sortOrdr}'/>"/>
+								<input type="hidden" name="replyLc" value="<c:out value='${result.replyLc}'/>"/>
 								<input type="hidden" name="returnUrl" value="<c:url value='/admin/board/viewBoard.do'/>"/>
 								
 								<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" />
